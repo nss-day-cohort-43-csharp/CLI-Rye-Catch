@@ -6,10 +6,29 @@ namespace TabloidCLI
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Welcome to the Blog");
+            /*
+             list of possible console colors:
+            Black
+            Blue
+            Cyan	
+            DarkBlue	
+            DarkCyan		
+            DarkGray		
+            DarkGreen		
+            DarkMagenta		
+            DarkRed		
+            DarkYellow	
+            Gray		
+            Green		
+            Magenta		
+            Red	
+            White
+            Yellow
+             */
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.Clear();
+            Console.WriteLine("Welcome to the Tabloid");
             System.Threading.Thread.Sleep(5000);
-            //Console.BackgroundColor = ConsoleColor.Red;
             Console.Clear();
             // MainMenuManager implements the IUserInterfaceManager interface
             IUserInterfaceManager ui = new MainMenuManager();
