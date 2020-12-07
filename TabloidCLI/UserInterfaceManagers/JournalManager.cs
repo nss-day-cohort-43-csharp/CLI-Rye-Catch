@@ -22,10 +22,9 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Console.WriteLine("Journal Menu");
             Console.WriteLine(" 1) List Journals");
-            Console.WriteLine(" 2) Journal Details");
-            Console.WriteLine(" 3) Add Journal");
-            Console.WriteLine(" 4) Edit Journal");
-            Console.WriteLine(" 5) Remove Journal");
+            Console.WriteLine(" 2) Add Journal");
+            Console.WriteLine(" 3) Edit Journal");
+            Console.WriteLine(" 4) Remove Journal");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
