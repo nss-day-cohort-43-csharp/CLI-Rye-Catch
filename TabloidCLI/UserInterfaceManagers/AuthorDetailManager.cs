@@ -24,12 +24,14 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine("");
             Author author = _authorRepository.Get(_authorId);
-            Console.WriteLine($"{author.FullName} Details");
+            Console.WriteLine($"{author.FullName} Details Menu");
             Console.WriteLine(" 1) View");
             Console.WriteLine(" 2) View Blog Posts");
             Console.WriteLine(" 3) Add Tag");
-            Console.WriteLine(" 4) Remove Tag");
+            // Only displays REMOVE TAG if there are tags available to remove.
+            if (author.Tags.Count > 0) Console.WriteLine(" 4) Remove Tag");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -46,7 +48,8 @@ namespace TabloidCLI.UserInterfaceManagers
                     AddTag();
                     return this;
                 case "4":
-                    RemoveTag();
+                    Console.Clear();
+                    if (author.Tags.Count > 0) RemoveTag();
                     return this;
                 case "0":
                     return _parentUI;
@@ -58,29 +61,24 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void View()
         {
+            Console.Clear();
             Author author = _authorRepository.Get(_authorId);
             Console.WriteLine($"Name: {author.FullName}");
             Console.WriteLine($"Bio: {author.Bio}");
             Console.WriteLine("Tags:");
-            foreach (Tag tag in author.Tags)
-            {
-                Console.WriteLine(" " + tag);
-            }
-            Console.WriteLine();
+            foreach (Tag tag in author.Tags) Console.WriteLine(" " + tag);      
         }
 
         private void ViewBlogPosts()
         {
+            Console.Clear();
             List<Post> posts = _postRepository.GetByAuthor(_authorId);
-            foreach (Post post in posts)
-            {
-                Console.WriteLine(post);
-            }
-            Console.WriteLine();
+            foreach (Post post in posts) Console.WriteLine(post);           
         }
 
         private void AddTag()
         {
+            Console.Clear();
             Author author = _authorRepository.Get(_authorId);
 
             Console.WriteLine($"Which tag would you like to add to {author.FullName}?");
