@@ -19,6 +19,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine("");
             Console.WriteLine("Author Menu");
             Console.WriteLine(" 1) List Authors");
             Console.WriteLine(" 2) Author Details");
@@ -36,14 +37,8 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
                 case "2":
                     Author author = Choose();
-                    if (author == null)
-                    {
-                        return this;
-                    }
-                    else
-                    {
-                        return new AuthorDetailManager(this, _connectionString, author.Id);
-                    }
+                    if (author == null) return this;                  
+                    else return new AuthorDetailManager(this, _connectionString, author.Id);                   
                 case "3":
                     Add();
                     return this;
@@ -63,20 +58,16 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void List()
         {
+            Console.Clear();
+            Console.WriteLine("List of Authors\n---------------");
             List<Author> authors = _authorRepository.GetAll();
-            foreach (Author author in authors)
-            {
-                Console.WriteLine(author);
-            }
+            foreach (Author author in authors) Console.WriteLine(author);    
         }
 
         private Author Choose(string prompt = null)
         {
-            if (prompt == null)
-            {
-                prompt = "Please choose an Author:";
-            }
-
+            Console.Clear();
+            if (prompt == null) prompt = "Please choose an Author:"; 
             Console.WriteLine(prompt);
 
             List<Author> authors = _authorRepository.GetAll();
@@ -103,6 +94,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Add()
         {
+            Console.Clear();
             Console.WriteLine("New Author");
             Author author = new Author();
 
@@ -120,26 +112,24 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Edit()
         {
+            Console.Clear();
             Author authorToEdit = Choose("Which author would you like to edit?");
-            if (authorToEdit == null)
-            {
-                return;
-            }
+            if (authorToEdit == null) return;           
 
             Console.WriteLine();
-            Console.Write("New first name (blank to leave unchanged: ");
+            Console.Write("New first name (blank to leave unchanged): ");
             string firstName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(firstName))
             {
                 authorToEdit.FirstName = firstName;
             }
-            Console.Write("New last name (blank to leave unchanged: ");
+            Console.Write("New last name (blank to leave unchanged): ");
             string lastName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(lastName))
             {
                 authorToEdit.LastName = lastName;
             }
-            Console.Write("New bio (blank to leave unchanged: ");
+            Console.Write("New bio (blank to leave unchanged): ");
             string bio = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(bio))
             {
@@ -151,6 +141,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Remove()
         {
+            Console.Clear();
             Author authorToDelete = Choose("Which author would you like to remove?");
             if (authorToDelete != null)
             {
