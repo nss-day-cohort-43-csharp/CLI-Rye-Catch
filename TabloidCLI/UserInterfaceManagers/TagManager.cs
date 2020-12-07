@@ -73,7 +73,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Tag tag = tags[i];
                 Console.WriteLine($" {i + 1}) {tag.Name}");
             }
-            Console.WriteLine("> ");
+            Console.Write("> ");
             
             string input = Console.ReadLine();
             try
@@ -92,7 +92,7 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Console.Clear();
 
-            Console.WriteLine("New Tag\n------");
+            Console.WriteLine("New Tag\n-------");
             Tag tag = new Tag();
             string name = "";
 
@@ -100,10 +100,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.Write("Tag Name: ");
                 name = Console.ReadLine().ToLower();
-                if (!String.IsNullOrWhiteSpace(name))
-                {
-                    tag.Name = name;
-                }
+                if (!String.IsNullOrWhiteSpace(name)) tag.Name = name;  
             }
             _tagRepository.Insert(tag);
             Console.WriteLine($"{name} added to database.");
@@ -113,11 +110,19 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Tag tagToEdit = Choose("Which tag would you like to edit?");
             if (tagToEdit == null) return;
+
+            Console.Write("New tag name (black to leave unchanged): ");
+            string tagName = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(tagName)) tagToEdit.Name = tagName;
+
+            _tagRepository.Update(tagToEdit);
         }
 
         private void Remove()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Tag tagToDelete = Choose("Which tag would you like to remove?");
+            if (tagToDelete != null) _tagRepository.Delete(tagToDelete.Id);
         }
     }
 }
