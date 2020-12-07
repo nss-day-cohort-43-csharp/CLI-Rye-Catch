@@ -1,11 +1,15 @@
 ﻿using TabloidCLI.UserInterfaceManagers;
-
+using System;
 namespace TabloidCLI
 {
     class Program
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Welcome to the Blog");
+            System.Threading.Thread.Sleep(5000);
+            Console.Clear();
             // MainMenuManager implements the IUserInterfaceManager interface
             IUserInterfaceManager ui = new MainMenuManager();
             while (ui != null)
