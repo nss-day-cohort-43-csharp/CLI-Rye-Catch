@@ -36,22 +36,12 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    //Journal journal = Choose();
-                    //if (journal == null)
-                    //{
-                    //    return this;
-                    //}
-                    //else
-                    //{
-                    //    return new AuthorDetailManager(this, _connectionString, author.Id);
-                    //}
-                case "3":
                     Add();
                     return this;
-                case "4":
+                case "3":
                     Edit();
                     return this;
-                case "5":
+                case "4":
                     Remove();
                     return this;
                 case "0":
