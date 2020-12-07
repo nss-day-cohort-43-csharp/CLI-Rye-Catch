@@ -54,7 +54,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void List()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.WriteLine("List of Tags\n------------");
+
+            List<Tag> tags = _tagRepository.GetAll();
+            tags.ForEach(t => Console.WriteLine(t.Name));
         }
 
         private Tag Choose(string prompt = null)
