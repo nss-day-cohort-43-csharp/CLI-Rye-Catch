@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Finished by Sam Edwards 
+using System;
 using System.Collections.Generic;
 using TabloidCLI.Models;
 
@@ -60,6 +61,33 @@ namespace TabloidCLI.UserInterfaceManagers
             tags.ForEach(t => Console.WriteLine(t.Name));
         }
 
+        private Tag Choose(string prompt = null)
+        {
+            if (prompt == null) prompt = "Please choose a Tag:";
+            Console.WriteLine(prompt);
+
+            List<Tag> tags = _tagRepository.GetAll();
+
+            for (int i = 0; i < tags.Count; i++)
+            {
+                Tag tag = tags[i];
+                Console.WriteLine($" {i + 1}) {tag.Name}");
+            }
+            Console.WriteLine("> ");
+            
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                return tags[choice - 1];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
+            }
+        }
+
         private void Add()
         {
             Console.Clear();
@@ -83,7 +111,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Edit()
         {
-            throw new NotImplementedException();
+            Tag tagToEdit = Choose("Which tag would you like to edit?");
+            if (tagToEdit == null) return;
         }
 
         private void Remove()
