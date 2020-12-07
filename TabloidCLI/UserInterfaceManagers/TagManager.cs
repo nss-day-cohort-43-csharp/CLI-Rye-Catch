@@ -1,18 +1,24 @@
 ﻿using System;
+using TabloidCLI.Models;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
     public class TagManager : IUserInterfaceManager
     {
         private readonly IUserInterfaceManager _parentUI;
+        private TagRepository _tagRepository;
+        private string _connectionString;
 
         public TagManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
+            _tagRepository = new TagRepository(connectionString);
+            _connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine("");
             Console.WriteLine("Tag Menu");
             Console.WriteLine(" 1) List Tags");
             Console.WriteLine(" 2) Add Tag");
@@ -51,7 +57,23 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Add()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+
+            Console.WriteLine("New Tag\n------");
+            Tag tag = new Tag();
+            string name = "";
+
+            while (tag.Name == null)
+            {
+                Console.Write("Tag Name: ");
+                name = Console.ReadLine().ToLower();
+                if (!String.IsNullOrWhiteSpace(name))
+                {
+                    tag.Name = name;
+                }
+            }
+            _tagRepository.Insert(tag);
+            Console.WriteLine($"{name} added to database.");
         }
 
         private void Edit()
