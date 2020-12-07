@@ -73,7 +73,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Tag tag = tags[i];
                 Console.WriteLine($" {i + 1}) {tag.Name}");
             }
-            Console.WriteLine("> ");
+            Console.Write("> ");
             
             string input = Console.ReadLine();
             try
@@ -120,7 +120,9 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Remove()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Tag tagToDelete = Choose("Which tag would you like to remove?");
+            if (tagToDelete != null) _tagRepository.Delete(tagToDelete.Id);
         }
     }
 }
