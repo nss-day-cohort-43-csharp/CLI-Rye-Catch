@@ -47,6 +47,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void View()
         {
+            Console.Clear();
             Blog blog = _blogRepository.Get(_blogId);
             Console.WriteLine($"Title: {blog.Title}");
             Console.WriteLine($"URL: {blog.Url}");
@@ -56,6 +57,14 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine(" " + tag);
             }
             Console.WriteLine();
+        }
+
+        private void AddTag()
+        {
+            Console.Clear();
+            Blog blog = _blogRepository.Get(_blogId);
+            Console.WriteLine($"Which tag would you like to add to {blog.Title}");
+
         }
     }
 }

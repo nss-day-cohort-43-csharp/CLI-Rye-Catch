@@ -25,7 +25,7 @@ namespace TabloidCLI
             White
             Yellow
              */
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Clear();
             Console.WriteLine("Welcome to the Tabloid");
             System.Threading.Thread.Sleep(5000);
