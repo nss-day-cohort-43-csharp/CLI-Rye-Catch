@@ -44,7 +44,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     //Add();
                     return this;
                 case "4":
-                    Edit();
+                    //Edit();
                     return this;
                 case "5":
                     Remove();
@@ -105,52 +105,52 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void Add()
-        {
-            Console.Clear();
-            Console.WriteLine("NewPost");
-            Post post = newPost();
+        //private void Add()
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("NewPost");
+        //    Post post = newPost();
 
-            Console.Write("First Name: ");
-            post.FirstName = Console.ReadLine();
+        //    Console.Write("First Name: ");
+        //    post.FirstName = Console.ReadLine();
 
-            Console.Write("Last Name: ");
-            post.LastName = Console.ReadLine();
+        //    Console.Write("Last Name: ");
+        //    post.LastName = Console.ReadLine();
 
-            Console.Write("Bio: ");
-            post.Bio = Console.ReadLine();
+        //    Console.Write("Bio: ");
+        //    post.Bio = Console.ReadLine();
 
-            _postRepository.Insert(post);
-        }
+        //    _postRepository.Insert(post);
+        //}
 
-        private void Edit()
-        {
-            Console.Clear();
-            Post postToEdit = Choose("Which post would you like to edit?");
-            if (postToEdit == null) return;
+        //private void Edit()
+        //{
+        //    Console.Clear();
+        //    Post postToEdit = Choose("Which post would you like to edit?");
+        //    if (postToEdit == null) return;
 
-            Console.WriteLine();
-            Console.Write("New first name (blank to leave unchanged): ");
-            string firstName = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(firstName))
-            {
-                postToEdit.FirstName = firstName;
-            }
-            Console.Write("New last name (blank to leave unchanged): ");
-            string lastName = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(lastName))
-            {
-                postToEdit.LastName = lastName;
-            }
-            Console.Write("New bio (blank to leave unchanged): ");
-            string bio = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(bio))
-            {
-                postToEdit.Bio = bio;
-            }
+        //    Console.WriteLine();
+        //    Console.Write("New first name (blank to leave unchanged): ");
+        //    string firstName = Console.ReadLine();
+        //    if (!string.IsNullOrWhiteSpace(firstName))
+        //    {
+        //        postToEdit.FirstName = firstName;
+        //    }
+        //    Console.Write("New last name (blank to leave unchanged): ");
+        //    string lastName = Console.ReadLine();
+        //    if (!string.IsNullOrWhiteSpace(lastName))
+        //    {
+        //        postToEdit.LastName = lastName;
+        //    }
+        //    Console.Write("New bio (blank to leave unchanged): ");
+        //    string bio = Console.ReadLine();
+        //    if (!string.IsNullOrWhiteSpace(bio))
+        //    {
+        //        postToEdit.Bio = bio;
+        //    }
 
-            _postRepository.Update(postToEdit);
-        }
+        //    _postRepository.Update(postToEdit);
+        //}
 
         private void Remove()
         {
