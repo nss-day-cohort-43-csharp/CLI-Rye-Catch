@@ -48,7 +48,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Add();
                     return this;
                 case "4":
-                    //Edit();
+                    Edit();
                     return this;
                 case "5":
                     Remove();
@@ -122,7 +122,7 @@ namespace TabloidCLI.UserInterfaceManagers
             post.Url = Console.ReadLine();
 
             post.PublishDateTime = DateTime.Now;
-
+            //This block is for the Author list that the user chooses from.
             Console.Clear();
             Console.WriteLine("List of Authors\n---------------");
             List<Author> authors = _authorRepository.GetAll();
@@ -130,6 +130,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("Enter the Author's ID");
             post.Author = new Author();
             post.Author.Id = int.Parse(Console.ReadLine());
+            //this block is for listing the blogs that we can choose
             Console.Clear();
             List<Blog> blogs = _BlogRepository.GetAll();
             foreach (Blog blog in blogs)
@@ -163,12 +164,31 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 postToEdit.Url = url;
             }
-            // this is where things get tricky - We'll probably need to change some things in the Post repo.
-            Console.Write("New bio (blank to leave unchanged): ");
-            string bio = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(bio))
+            // this is where things get tricky - This ia prints out a list of authors with their Ids, the user will then pick an Id & we make a new Author Object to hold that Id.
+            Console.Clear();
+            Console.Write("New Author (blank to leave unchanged): ");
+            Console.WriteLine("List of Authors\n---------------");
+            List<Author> authors = _authorRepository.GetAll();
+            foreach (Author author in authors) Console.WriteLine($"{author.Id} - {author.FullName}");
+            Console.WriteLine("Enter the Author's ID");
+            string authorId = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(authorId))
             {
-                postToEdit.Bio = bio;
+                postToEdit.Author = new Author();
+                postToEdit.Author.Id = int.Parse(authorId);
+            }
+            //this will be the block to make sure that we create a new Blog object if we need it.
+            Console.Clear();
+            Console.Write("New Blog (blank to leave unchanged): ");
+            Console.WriteLine("List of Blogs\n---------------");
+            List<Blog> blogs = _BlogRepository.GetAll();
+            foreach (Blog blog in blogs) Console.WriteLine($"{blog.Id} - {blog.Title}");
+            Console.WriteLine("Enter the Blogs's ID");
+            string blogId = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(authorId))
+            {
+                postToEdit.Blog = new Blog();
+                postToEdit.Blog.Id = int.Parse(blogId);
             }
 
             _postRepository.Update(postToEdit);
