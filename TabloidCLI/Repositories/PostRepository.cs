@@ -77,13 +77,6 @@ namespace TabloidCLI.Repositories
                             PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
                             Author = new Author()
                             {
-<<<<<<< HEAD
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Title = reader.GetString(reader.GetOrdinal("Title")),
-                                Url = reader.GetString(reader.GetOrdinal("URL")),
-                                PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime"))
-                            };
-=======
                                 Id = reader.GetInt32(reader.GetOrdinal("AuthorId")),
                                 FirstName = reader.GetString(reader.GetOrdinal("AuthorFirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("AuthorLastName"))
@@ -95,7 +88,6 @@ namespace TabloidCLI.Repositories
                                 Url = reader.GetString(reader.GetOrdinal("BlogURL"))
                             }
                         };
->>>>>>> ec4659d8477ee677eb3636bf4b8be922175a34df
                         }
                     
                     reader.Close();
@@ -221,6 +213,42 @@ namespace TabloidCLI.Repositories
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public List<Tag> GetPostTags(int postId)
+        {
+
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT t.Name, t.Id
+                                        FROM Post p
+                                        LEFT JOIN PostTag pt ON  pt.PostId=p.Id
+                                        JOIN Tag t on pt.TagId=t.Id
+                                        WHERE p.Id=@id;";
+
+                    cmd.Parameters.AddWithValue("@id", postId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<Tag> tags = new List<Tag>();
+                    while (reader.Read())
+                    {
+
+                        Tag tag = new Tag()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name"))
+                        };
+                        tags.Add(tag);
+                    }
+
+                    reader.Close();
+
+                    return tags;
                 }
             }
         }

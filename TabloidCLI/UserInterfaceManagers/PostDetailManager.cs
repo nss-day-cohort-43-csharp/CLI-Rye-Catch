@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
-    internal class PostDetailManager : IUserInterfaceManager
+    internal class PostDetailManager :  IUserInterfaceManager
     {
         private IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
@@ -34,7 +35,7 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
-                    //View();
+                    View();
                     return this;
                 case "2":
                     //AddTag();
@@ -51,6 +52,27 @@ namespace TabloidCLI.UserInterfaceManagers
                     Console.WriteLine("Invalid Selection");
                     return this;
             }
+        }
+
+        private void View()
+        {
+            Console.Clear();
+            Post post = _postRepository.Get(_postId);
+            int postId = post.Id;
+
+            List<Tag> name = _postRepository.GetPostTags(postId);
+            Console.WriteLine($@"Title: {post.Title}
+URL: {post.Url}
+Date: {post.PublishDateTime}
+Tags");
+
+            foreach (Tag tag in name)
+            {
+                Console.WriteLine("-----------");
+                Console.WriteLine(tag.Name);
+                
+            };
+            Console.WriteLine("-----------");
         }
     }
 }
