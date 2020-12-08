@@ -63,7 +63,7 @@ namespace TabloidCLI.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 Title = reader.GetString(reader.GetOrdinal("Title")),
                                 Url = reader.GetString(reader.GetOrdinal("URL")),
-                                PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
+                                PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime"))
                             };
                         }
                     
