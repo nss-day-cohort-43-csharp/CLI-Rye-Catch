@@ -9,6 +9,14 @@ namespace TabloidCLI.UserInterfaceManagers
         private IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
 
-        public IUserInterfaceManager
+        public PostDetailManager(IUserInterfaceManager parentUI, string connectionString, int postId)
+        {
+
+        }
+
+        public IUserInterfaceManager Execute()
+        {
+
+        }
     }
 }
