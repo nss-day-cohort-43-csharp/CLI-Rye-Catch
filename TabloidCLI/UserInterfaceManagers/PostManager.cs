@@ -145,37 +145,6 @@ namespace TabloidCLI.UserInterfaceManagers
             _postRepository.Insert(post);
         }
 
-<<<<<<< HEAD
-        //private void Edit()
-        //{
-        //    Console.Clear();
-        //    Post postToEdit = Choose("Which post would you like to edit?");
-        //    if (postToEdit == null) return;
-
-        //    Console.WriteLine();
-        //    Console.Write("New Title (blank to leave unchanged): ");
-        //    string title = Console.ReadLine();
-        //    if (!string.IsNullOrWhiteSpace(title))
-        //    {
-        //        postToEdit.Title = title;
-        //    }
-        //    Console.Write("New URL (blank to leave unchanged): ");
-        //    string url = Console.ReadLine();
-        //    if (!string.IsNullOrWhiteSpace(url))
-        //    {
-        //        postToEdit.Url = url;
-        //    }
-        //    // this is where things get tricky - We'll probably need to change some things in the Post repo.
-        //    Console.Write("New bio (blank to leave unchanged): ");
-        //    string bio = Console.ReadLine();
-        //    if (!string.IsNullOrWhiteSpace(bio))
-        //    {
-        //        postToEdit.Bio = bio;
-        //    }
-
-        //    _postRepository.Update(postToEdit);
-        //}
-=======
         private void Edit()
         {
             Console.Clear();
@@ -224,7 +193,6 @@ namespace TabloidCLI.UserInterfaceManagers
 
             _postRepository.Update(postToEdit);
         }
->>>>>>> 17c58481686dfd40e18275362b93ae17ac5d6eb2
 
         private void Remove()
         {
