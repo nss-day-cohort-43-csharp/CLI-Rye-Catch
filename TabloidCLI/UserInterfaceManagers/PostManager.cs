@@ -36,9 +36,9 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    Author author = Choose();
-                    if (author == null) return this;                  
-                    else return new AuthorDetailManager(this, _connectionString, author.Id);                   
+                    Post post = Choose();
+                    if (post == null) return this;                  
+                    else return new PostDetailManager(this, _connectionString, post.Id);                   
                 case "3":
                     Add();
                     return this;
@@ -72,18 +72,18 @@ namespace TabloidCLI.UserInterfaceManagers
             foreach (Author author in authors) Console.WriteLine(author);    
         }
 
-        private Author Choose(string prompt = null)
+        private Post Choose(string prompt = null)
         {
             Console.Clear();
-            if (prompt == null) prompt = "Please choose an Author:"; 
+            if (prompt == null) prompt = "Please choose a Post:"; 
             Console.WriteLine(prompt);
 
-            List<Author> authors = _authorRepository.GetAll();
+            List<Post> posts = _postRepository.GetAll();
 
-            for (int i = 0; i < authors.Count; i++)
+            for (int i = 0; i < posts.Count; i++)
             {
-                Author author = authors[i];
-                Console.WriteLine($" {i + 1}) {author.FullName}");
+                Post post = posts[i];
+                Console.WriteLine($" {i + 1}) {post.Title}");
             }
             Console.Write("> ");
 
@@ -91,7 +91,7 @@ namespace TabloidCLI.UserInterfaceManagers
             try
             {
                 int choice = int.Parse(input);
-                return authors[choice - 1];
+                return posts[choice - 1];
             }
             catch (Exception ex)
             {
