@@ -41,9 +41,9 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                   //Post post = Choose();
-                   // if (post == null) return this;                  
-                   // else return newPostDetailManager(this, _connectionString, post.Id);                   
+                    Post post = Choose();
+                    if (post == null) return this;                  
+                    else return new PostDetailManager(this, _connectionString, post.Id);                   
                 case "3":
                     Add();
                     return this;
