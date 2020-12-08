@@ -27,6 +27,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Blog blog = _blogRepository.Get(_blogId);
             Console.WriteLine($"{blog.Title} Details");
             Console.WriteLine(" 1) View");
+            Console.WriteLine(" 2) Add Tag");
             Console.WriteLine(" 0) Go Back");
 
 
@@ -36,6 +37,9 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     View();
+                    return this;
+                case "2":
+                    AddTag();
                     return this;
                 case "0":
                     return _parentUI;
@@ -47,6 +51,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void View()
         {
+            Console.Clear();
             Blog blog = _blogRepository.Get(_blogId);
             Console.WriteLine($"Title: {blog.Title}");
             Console.WriteLine($"URL: {blog.Url}");
@@ -56,6 +61,31 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine(" " + tag);
             }
             Console.WriteLine();
+        }
+
+        private void AddTag()
+        {
+            Console.Clear();
+            Blog blog = _blogRepository.Get(_blogId);
+            Console.WriteLine($"Which tag would you like to add to {blog.Title}");
+            List<Tag> tags = _tagRepository.GetAll();
+            for(int i =0; i<tags.Count; i++)
+            {
+                Tag tag = tags[i];
+                Console.WriteLine($" {i+1}) {tag.Name}");
+            }
+            Console.WriteLine("> ");
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                Tag tag = tags[choice - 1];
+                _blogRepository.InsertTag(blog, tag);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Invalid Selection, Won't add any tags.");
+            }
         }
     }
 }
