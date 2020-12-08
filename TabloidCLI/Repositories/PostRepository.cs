@@ -193,9 +193,6 @@ namespace TabloidCLI.Repositories
             }
         }
 
-        public static implicit operator PostRepository(AuthorRepository v)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

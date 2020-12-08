@@ -20,12 +20,12 @@ namespace TabloidCLI.UserInterfaceManagers
         public IUserInterfaceManager Execute()
         {
             Console.WriteLine("");
-            Console.WriteLine("Author Menu");
-            Console.WriteLine(" 1) List Authors");
-            Console.WriteLine(" 2) Author Details");
-            Console.WriteLine(" 3) Add Author");
-            Console.WriteLine(" 4) Edit Author");
-            Console.WriteLine(" 5) Remove Author");
+            Console.WriteLine("Post Menu");
+            Console.WriteLine(" 1) List Posts");
+            Console.WriteLine(" 2) Post Details");
+            Console.WriteLine(" 3) Add Post");
+            Console.WriteLine(" 4) Edit Post");
+            Console.WriteLine(" 5) Remove Post");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -55,6 +55,14 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
             }
         }
+
+        
+        
+
+        /// <summary>
+        /// Everything below this point needs work. Somethings will need some work in the post repo, Delete and Edit most likely.
+        /// </summary>
+         
 
         private void List()
         {
