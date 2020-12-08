@@ -45,7 +45,7 @@ namespace TabloidCLI.UserInterfaceManagers
                    // if (post == null) return this;                  
                    // else return newPostDetailManager(this, _connectionString, post.Id);                   
                 case "3":
-                    //Add();
+                    Add();
                     return this;
                 case "4":
                     //Edit();
@@ -128,47 +128,50 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Author> authors = _authorRepository.GetAll();
             foreach (Author author in authors) Console.WriteLine($"{author.Id} - {author.FullName}");
             Console.WriteLine("Enter the Author's ID");
+            post.Author = new Author();
             post.Author.Id = int.Parse(Console.ReadLine());
             Console.Clear();
             List<Blog> blogs = _BlogRepository.GetAll();
             foreach (Blog blog in blogs)
             {
-                Console.WriteLine($"{blog.Id - }");
+                Console.WriteLine($"{blog.Id} - {blog.Title}");
             }
-
-
+            Console.WriteLine("Enter the Author's ID");
+            post.Blog = new Blog();
+            post.Blog.Id = int.Parse(Console.ReadLine());
+            Console.Clear();
 
             _postRepository.Insert(post);
         }
 
-        private void Edit()
-        {
-            Console.Clear();
-            Post postToEdit = Choose("Which post would you like to edit?");
-            if (postToEdit == null) return;
+        //private void Edit()
+        //{
+        //    Console.Clear();
+        //    Post postToEdit = Choose("Which post would you like to edit?");
+        //    if (postToEdit == null) return;
 
-            Console.WriteLine();
-            Console.Write("New first name (blank to leave unchanged): ");
-            string firstName = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(firstName))
-            {
-                postToEdit.FirstName = firstName;
-            }
-            Console.Write("New last name (blank to leave unchanged): ");
-            string lastName = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(lastName))
-            {
-                postToEdit.LastName = lastName;
-            }
-            Console.Write("New bio (blank to leave unchanged): ");
-            string bio = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(bio))
-            {
-                postToEdit.Bio = bio;
-            }
+        //    Console.WriteLine();
+        //    Console.Write("New first name (blank to leave unchanged): ");
+        //    string firstName = Console.ReadLine();
+        //    if (!string.IsNullOrWhiteSpace(firstName))
+        //    {
+        //        postToEdit.FirstName = firstName;
+        //    }
+        //    Console.Write("New last name (blank to leave unchanged): ");
+        //    string lastName = Console.ReadLine();
+        //    if (!string.IsNullOrWhiteSpace(lastName))
+        //    {
+        //        postToEdit.LastName = lastName;
+        //    }
+        //    Console.Write("New bio (blank to leave unchanged): ");
+        //    string bio = Console.ReadLine();
+        //    if (!string.IsNullOrWhiteSpace(bio))
+        //    {
+        //        postToEdit.Bio = bio;
+        //    }
 
-            _postRepository.Update(postToEdit);
-        }
+        //    _postRepository.Update(postToEdit);
+        //}
 
         private void Remove()
         {
