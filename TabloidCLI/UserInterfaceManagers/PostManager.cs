@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
     public class PostManager : IUserInterfaceManager
     {
         private readonly IUserInterfaceManager _parentUI;
-        private AuthorRepository _authorRepository;
+        private PostRepository _postRepository;
         private string _connectionString;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
-            _authorRepository = new AuthorRepository(connectionString);
+            _postRepository = new PostRepository(connectionString);
             _connectionString = connectionString;
         }
 
@@ -36,9 +37,9 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    Post post = Choose();
-                    if (post == null) return this;                  
-                    else return new PostDetailManager(this, _connectionString, post.Id);                   
+                    Author author = Choose();
+                    if (author == null) return this;                  
+                    else return new AuthorDetailManager(this, _connectionString, author.Id);                   
                 case "3":
                     Add();
                     return this;
@@ -103,57 +104,57 @@ namespace TabloidCLI.UserInterfaceManagers
         private void Add()
         {
             Console.Clear();
-            Console.WriteLine("New Author");
-            Author author = new Author();
+            Console.WriteLine("NewPost");
+            Post post = newPost();
 
             Console.Write("First Name: ");
-            author.FirstName = Console.ReadLine();
+            post.FirstName = Console.ReadLine();
 
             Console.Write("Last Name: ");
-            author.LastName = Console.ReadLine();
+            post.LastName = Console.ReadLine();
 
             Console.Write("Bio: ");
-            author.Bio = Console.ReadLine();
+            post.Bio = Console.ReadLine();
 
-            _authorRepository.Insert(author);
+            _postRepository.Insert(post);
         }
 
         private void Edit()
         {
             Console.Clear();
-            Author authorToEdit = Choose("Which author would you like to edit?");
-            if (authorToEdit == null) return;           
+            Post postToEdit = Choose("Which post would you like to edit?");
+            if (postToEdit == null) return;
 
             Console.WriteLine();
             Console.Write("New first name (blank to leave unchanged): ");
             string firstName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(firstName))
             {
-                authorToEdit.FirstName = firstName;
+                postToEdit.FirstName = firstName;
             }
             Console.Write("New last name (blank to leave unchanged): ");
             string lastName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(lastName))
             {
-                authorToEdit.LastName = lastName;
+                postToEdit.LastName = lastName;
             }
             Console.Write("New bio (blank to leave unchanged): ");
             string bio = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(bio))
             {
-                authorToEdit.Bio = bio;
+                postToEdit.Bio = bio;
             }
 
-            _authorRepository.Update(authorToEdit);
+            _postRepository.Update(postToEdit);
         }
 
         private void Remove()
         {
             Console.Clear();
-            Author authorToDelete = Choose("Which author would you like to remove?");
-            if (authorToDelete != null)
+            Post postToDelete = Choose("Which post would you like to remove?");
+            if (postToDelete != null)
             {
-                _authorRepository.Delete(authorToDelete.Id);
+                _postRepository.Delete(postToDelete.Id);
             }
         }
     }
