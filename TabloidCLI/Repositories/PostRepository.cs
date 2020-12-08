@@ -16,7 +16,19 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Title, URL, Id FROM Post;";
+                    cmd.CommandText = @"SELECT p.Id as PostId,
+                                        p.Title,
+                                        p.URL,
+                                        p.PublishDateTime,
+                                        a.Id as AuthorId,
+                                        a.FirstName as AuthorFirstName,
+                                        a.LastName as AuthorLastName,
+                                        b.Id as BlogId,
+                                        b.Title as BlogTitle,
+                                        b.URL as BlogURL
+                                        FROM Post p
+                                        LEFT JOIN Author a ON p.AuthorId = a.Id
+                                        LEFT JOIN Blog b ON p.BlogId = b.Id;";
 
                     List<Post> posts = new List<Post>();
 
@@ -25,9 +37,22 @@ namespace TabloidCLI.Repositories
                     {
                         Post post = new Post()
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Id = reader.GetInt32(reader.GetOrdinal("PostId")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("URL")),
+                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
+                            Author = new Author()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("AuthorId")),
+                                FirstName = reader.GetString(reader.GetOrdinal("AuthorFirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("AuthorLastName"))
+                            },
+                            Blog = new Blog()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("BlogId")),
+                                Title = reader.GetString(reader.GetOrdinal("BlogTitle")),
+                                Url = reader.GetString(reader.GetOrdinal("BlogURL"))
+                            }
                         };
                         posts.Add(post);
                     }
@@ -190,6 +215,7 @@ namespace TabloidCLI.Repositories
                                         BlogId = @blogId
                                         WHERE id = @id;";
 
+                    cmd.Parameters.AddWithValue("@id", post.Id);
                     cmd.Parameters.AddWithValue("@title", post.Title);
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@createDateTime", DateTime.Now);
