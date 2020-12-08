@@ -39,14 +39,14 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    Author author = Choose();
-                    if (author == null) return this;                  
-                    else return new AuthorDetailManager(this, _connectionString, author.Id);                   
+                   //Post post = Choose();
+                   // if (post == null) return this;                  
+                   // else return newPostDetailManager(this, _connectionString, post.Id);                   
                 case "3":
                     Add();
                     return this;
                 case "4":
-                    Edit();
+                    //Edit();
                     return this;
                 case "5":
                     Remove();
@@ -70,23 +70,23 @@ namespace TabloidCLI.UserInterfaceManagers
         private void List()
         {
             Console.Clear();
-            Console.WriteLine("List of Authors\n---------------");
-            List<Author> authors = _authorRepository.GetAll();
-            foreach (Author author in authors) Console.WriteLine(author);    
+            Console.WriteLine("Current Posts\n---------------");
+            List<Post> posts = _postRepository.GetAll();
+            foreach (Post post in posts) Console.WriteLine(post);    
         }
 
-        private Author Choose(string prompt = null)
+        privatePost Choose(string prompt = null)
         {
             Console.Clear();
-            if (prompt == null) prompt = "Please choose an Author:"; 
+            if (prompt == null) prompt = "Please choose anPost:";
             Console.WriteLine(prompt);
 
-            List<Author> authors = _authorRepository.GetAll();
+            List<Author> posts = _postRepository.GetAll();
 
-            for (int i = 0; i < authors.Count; i++)
+            for (int i = 0; i < posts.Count; i++)
             {
-                Author author = authors[i];
-                Console.WriteLine($" {i + 1}) {author.FullName}");
+                Post post = posts[i];
+                Console.WriteLine($" {i + 1}) {post.FullName}");
             }
             Console.Write("> ");
 
@@ -94,7 +94,7 @@ namespace TabloidCLI.UserInterfaceManagers
             try
             {
                 int choice = int.Parse(input);
-                return authors[choice - 1];
+                return posts[choice - 1];
             }
             catch (Exception ex)
             {
@@ -123,45 +123,45 @@ namespace TabloidCLI.UserInterfaceManagers
 
 
 
-            _authorRepository.Insert(author);
+            _postRepository.Insert(post);
         }
 
         private void Edit()
         {
             Console.Clear();
-            Author authorToEdit = Choose("Which author would you like to edit?");
-            if (authorToEdit == null) return;           
+            Post postToEdit = Choose("Which post would you like to edit?");
+            if (postToEdit == null) return;
 
             Console.WriteLine();
             Console.Write("New first name (blank to leave unchanged): ");
             string firstName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(firstName))
             {
-                authorToEdit.FirstName = firstName;
+                postToEdit.FirstName = firstName;
             }
             Console.Write("New last name (blank to leave unchanged): ");
             string lastName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(lastName))
             {
-                authorToEdit.LastName = lastName;
+                postToEdit.LastName = lastName;
             }
             Console.Write("New bio (blank to leave unchanged): ");
             string bio = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(bio))
             {
-                authorToEdit.Bio = bio;
+                postToEdit.Bio = bio;
             }
 
-            _authorRepository.Update(authorToEdit);
+            _postRepository.Update(postToEdit);
         }
 
         private void Remove()
         {
             Console.Clear();
-            Author authorToDelete = Choose("Which author would you like to remove?");
-            if (authorToDelete != null)
+            Post postToDelete = Choose("Which post would you like to remove?");
+            if (postToDelete != null)
             {
-                _authorRepository.Delete(authorToDelete.Id);
+                _postRepository.Delete(postToDelete.Id);
             }
         }
     }
