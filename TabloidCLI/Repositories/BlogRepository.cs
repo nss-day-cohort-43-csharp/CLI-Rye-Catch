@@ -42,10 +42,10 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd= conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT b.Id AS BlogId, b.Title, b.URL 
+                    cmd.CommandText = @"SELECT b.Id AS BlogId, b.Title, b.URL, t.Id as TagId, t.Name
                                       FROM Blog b 
-                                      LEFT JOIN BlogTag bt on b.Id = bt.BlogId,
-                                      LEFT JOIN Tag t on t.Id=bt.TagId
+                                      LEFT JOIN BlogTag bt ON b.Id = bt.BlogId
+                                      LEFT JOIN Tag t ON t.Id=bt.TagId
                                       WHERE b.Id=@id";
                     cmd.Parameters.AddWithValue("@id", id);
                     Blog blog = null;
