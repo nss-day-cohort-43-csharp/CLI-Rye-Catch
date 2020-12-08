@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
     public class PostManager : IUserInterfaceManager
     {
         private readonly IUserInterfaceManager _parentUI;
+        private PostRepository _postRepository;
         private AuthorRepository _authorRepository;
         private string _connectionString;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
+            _postRepository = new PostRepository(connectionString);
             _authorRepository = new AuthorRepository(connectionString);
             _connectionString = connectionString;
         }
@@ -103,17 +106,22 @@ namespace TabloidCLI.UserInterfaceManagers
         private void Add()
         {
             Console.Clear();
-            Console.WriteLine("New Author");
-            Author author = new Author();
+            Console.WriteLine("New Post");
+            Post post = new Post();
 
-            Console.Write("First Name: ");
-            author.FirstName = Console.ReadLine();
+            Console.Write("Post Title: ");
+            post.Title = Console.ReadLine();
 
-            Console.Write("Last Name: ");
-            author.LastName = Console.ReadLine();
+            Console.Write("Post URL: ");
+            post.Url = Console.ReadLine();
 
-            Console.Write("Bio: ");
-            author.Bio = Console.ReadLine();
+            post.PublishDateTime = DateTime.Now;
+
+            Console.WriteLine("List of Authors\n---------------");
+            List<Author> authors = _authorRepository.GetAll();
+            foreach (Author author in authors) Console.WriteLine($"{author.Id} - {author.FullName}");
+
+
 
             _authorRepository.Insert(author);
         }
