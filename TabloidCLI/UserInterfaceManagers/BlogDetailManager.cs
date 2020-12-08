@@ -69,9 +69,10 @@ namespace TabloidCLI.UserInterfaceManagers
             Blog blog = _blogRepository.Get(_blogId);
             Console.WriteLine($"Which tag would you like to add to {blog.Title}");
             List<Tag> tags = _tagRepository.GetAll();
-            foreach (Tag tag in tags)
+            for(int i =0; i<tags.Count; i++)
             {
-                Console.WriteLine($" {tag.Id}) {tag.Name}");
+                Tag tag = tags[i];
+                Console.WriteLine($" {i+1}) {tag.Name}");
             }
             Console.WriteLine("> ");
             string input = Console.ReadLine();
