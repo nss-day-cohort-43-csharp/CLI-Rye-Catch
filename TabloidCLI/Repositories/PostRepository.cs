@@ -16,7 +16,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Title, URL FROM Post;";
+                    cmd.CommandText = "SELECT Title, URL, Id FROM Post;";
 
                     List<Post> posts = new List<Post>();
 
@@ -25,6 +25,7 @@ namespace TabloidCLI.Repositories
                     {
                         Post post = new Post()
                         {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("URL")),
                         };
