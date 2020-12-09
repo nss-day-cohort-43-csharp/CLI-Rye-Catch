@@ -58,10 +58,15 @@ namespace TabloidCLI.UserInterfaceManagers
         private void List()
         {
             List<Blog> blogs = _BlogRepository.GetAll();
+            Console.Clear();
+            Console.WriteLine("-----Blogs-----");
             foreach(Blog blog in blogs)
             {
-                Console.WriteLine(blog);
+                Console.WriteLine($"Blog Title: {blog.Title}");
+                Console.WriteLine($"Blog Url: {blog.Url}");
+                Console.WriteLine("---------------");
             }
+            Console.WriteLine();
         }
 
         private Blog Choose(string prompt = null)
