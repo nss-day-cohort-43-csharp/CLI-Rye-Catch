@@ -235,7 +235,10 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Post WHERE Id = @id;";
+                    cmd.CommandText = @"DELETE FROM PostTag
+                                            WHERE PostId = @id
+                                        DELETE FROM Post
+                                            WHERE Post.id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
@@ -243,6 +246,77 @@ namespace TabloidCLI.Repositories
             }
         }
 
+        public List<Tag> GetPostTags(int postId)
+        {
+
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT t.Name, t.Id
+                                        FROM Post p
+                                        LEFT JOIN PostTag pt ON  pt.PostId=p.Id
+                                        JOIN Tag t on pt.TagId=t.Id
+                                        WHERE p.Id=@id;";
+
+                    cmd.Parameters.AddWithValue("@id", postId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<Tag> tags = new List<Tag>();
+                    while (reader.Read())
+                    {
+
+                        Tag tag = new Tag()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name"))
+                        };
+                        tags.Add(tag);
+                    }
+
+                    reader.Close();
+
+                    return tags;
+                }
+            }
+        }
+
+        public void InsertTag(Post post, Tag tag)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    // Needs to go to the postTag table and put the PostId and TagId into a new entry
+                    cmd.CommandText = @"INSERT INTO PostTag (PostId, TagId)
+                                                    VALUES (@postId, @tagId)";
+                    cmd.Parameters.AddWithValue(@"postId", post.Id);
+                    cmd.Parameters.AddWithValue(@"tagId", tag.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         
+        public void DeleteTag(int postId, int tagId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM PostTag 
+                                         WHERE PostId = @postid AND 
+                                               TagId = @tagId";
+                    cmd.Parameters.AddWithValue("@postId", postId);
+                    cmd.Parameters.AddWithValue("@tagId", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }
 }
