@@ -48,6 +48,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     if (blog == null) return this;
                     else return new BlogDetailManager(this, _connectionString, blog.Id);
                 case "0":
+                    Console.Clear();
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");
@@ -60,6 +61,7 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Blog> blogs = _BlogRepository.GetAll();
             Console.Clear();
             Console.WriteLine("-----Blogs-----");
+            Console.WriteLine();
             foreach(Blog blog in blogs)
             {
                 Console.WriteLine($"Blog Title: {blog.Title}");
