@@ -72,12 +72,13 @@ namespace TabloidCLI.UserInterfaceManagers
         private void List()
         {
             Console.Clear();
-            Console.WriteLine("Current Posts\n---------------");
+            Console.WriteLine("-----Posts-----");
             List<Post> posts = _postRepository.GetAll();
             foreach (Post post in posts)
             {
                 Console.WriteLine($"Title: {post.Title}");
                 Console.WriteLine($"Link: '{post.Url}'");
+                Console.WriteLine("---------------");
             }
         }
 
