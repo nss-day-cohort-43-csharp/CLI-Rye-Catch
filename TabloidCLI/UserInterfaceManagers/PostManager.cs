@@ -166,6 +166,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 postToEdit.Title = title;
             }
+            Console.WriteLine();
             Console.WriteLine($"Original: {postToEdit.Url}");
             Console.Write("New URL (blank to leave unchanged): ");
             string url = Console.ReadLine();

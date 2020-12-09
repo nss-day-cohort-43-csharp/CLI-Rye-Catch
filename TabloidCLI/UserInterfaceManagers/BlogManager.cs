@@ -124,6 +124,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 blogToEdit.Title = title;
             }
+            Console.WriteLine();
             Console.WriteLine($"Original: {blogToEdit.Url}");
             Console.Write("New URL (blank to leave unchanged: ");
             string url = Console.ReadLine();

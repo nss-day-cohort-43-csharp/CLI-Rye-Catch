@@ -125,6 +125,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 authorToEdit.FirstName = firstName;
             }
+            Console.WriteLine();
             Console.WriteLine($"Original: {authorToEdit.LastName}");
             Console.Write("New last name (blank to leave unchanged): ");
             string lastName = Console.ReadLine();
@@ -132,6 +133,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 authorToEdit.LastName = lastName;
             }
+            Console.WriteLine();
             Console.WriteLine($"Original: {authorToEdit.Bio}");
             Console.Write("New bio (blank to leave unchanged): ");
             string bio = Console.ReadLine();

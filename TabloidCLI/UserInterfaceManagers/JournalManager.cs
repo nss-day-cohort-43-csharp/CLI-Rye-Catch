@@ -131,6 +131,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 journalToEdit.Title = title;
             }
+            Console.WriteLine();
             Console.WriteLine($"Original: {journalToEdit.Content}");
             Console.Write("New Content (blank to leave unchanged: ");
             string content = Console.ReadLine();
