@@ -95,9 +95,9 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Console.WriteLine("New Blog");
             Blog blog = new Blog();
-            Console.WriteLine("Title: ");
+            Console.Write("Title: ");
             blog.Title = Console.ReadLine();
-            Console.WriteLine("URL: ");
+            Console.Write("URL: ");
             blog.Url = Console.ReadLine();
             _BlogRepository.Insert(blog);
         }
@@ -116,7 +116,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 blogToEdit.Title = title;
             }
-            Console.WriteLine("New URL (blank to leave unchanged: ");
+            Console.Write("New URL (blank to leave unchanged: ");
             string url = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(url))
             {
