@@ -137,10 +137,19 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Remove()
         {
+            Console.Clear();
             Blog blogToDelete = Choose("Which blog would you like to remove?");
-            if (blogToDelete != null)
+            Console.WriteLine($"Are you sure that you want to delete {blogToDelete.Title}? --- Y / N");
+            string confirmation = Console.ReadLine().ToLower().Trim();
+
+            if (blogToDelete != null && confirmation == "y")
             {
                 _BlogRepository.Delete(blogToDelete.Id);
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Journal Titled: {blogToDelete.Title} wasn't deleted");
             }
         }
     }
