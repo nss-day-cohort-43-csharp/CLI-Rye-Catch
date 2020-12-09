@@ -148,6 +148,8 @@ namespace TabloidCLI
                 {
                     cmd.CommandText = @"DELETE FROM AuthorTag
                                             WHERE AuthorId = @id
+                                        DELETE FROM Post
+                                            WHERE AuthorId = @id
                                         DELETE FROM Author
                                             WHERE Author.id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
