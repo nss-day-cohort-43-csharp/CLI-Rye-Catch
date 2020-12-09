@@ -27,7 +27,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 5) Blog Details");
             Console.WriteLine(" 0) Go Back");
 
-            Console.WriteLine("> ");
+            Console.Write("> ");
             string choice = Console.ReadLine();
             switch (choice)
             {
