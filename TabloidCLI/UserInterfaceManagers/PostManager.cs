@@ -137,7 +137,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine($"{blog.Id} - {blog.Title}");
             }
-            Console.WriteLine("Enter the Author's ID");
+            Console.WriteLine("Enter the Blog's ID");
             post.Blog = new Blog();
             post.Blog.Id = int.Parse(Console.ReadLine());
             Console.Clear();
