@@ -47,6 +47,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     if (blog.Tags.Count > 0) RemoveTag();
                     return this;
                 case "0":
+                    Console.Clear();
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");

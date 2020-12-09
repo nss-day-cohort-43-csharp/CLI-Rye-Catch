@@ -44,6 +44,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Remove();
                     return this;
                 case "0":
+                    Console.Clear();
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");
@@ -54,16 +55,17 @@ namespace TabloidCLI.UserInterfaceManagers
         private void List()
         {
             List<Journal> journalPosts = _journalRepository.GetAll();
+            Console.Clear();
+            Console.WriteLine("---Journals---");
+            Console.WriteLine();
             foreach (Journal journalPost in journalPosts)
             {
-                Console.WriteLine(@$"----------------
-Title: {journalPost.Title}
-----------------
-Created: {journalPost.CreateDateTime} 
-Content: {journalPost.Content}
-----------------");
-                    
+                Console.WriteLine($"Title: {journalPost.Title}");
+                Console.WriteLine($"Created: {journalPost.CreateDateTime}");
+                Console.WriteLine($"Content: {journalPost.Content}");
+                Console.WriteLine("---------------");
             }
+            Console.WriteLine();
         }
 
         private Journal Choose(string prompt = null)
