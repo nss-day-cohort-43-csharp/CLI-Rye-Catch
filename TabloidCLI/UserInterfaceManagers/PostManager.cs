@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
+using TabloidCLI.UserInterfaceManagers;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
@@ -122,6 +123,7 @@ namespace TabloidCLI.UserInterfaceManagers
             post.Url = Console.ReadLine();
 
             post.PublishDateTime = DateTime.Now;
+            
             //This block is for the Author list that the user chooses from.
             Console.Clear();
             Console.WriteLine("List of Authors\n---------------");
@@ -129,7 +131,8 @@ namespace TabloidCLI.UserInterfaceManagers
             foreach (Author author in authors) Console.WriteLine($"{author.Id} - {author.FullName}");
             Console.WriteLine("Enter the Author's ID");
             post.Author = new Author();
-            post.Author.Id = int.Parse(Console.ReadLine());
+            post.Author.Id = InputHandler.CheckInputId(authors);
+
             //this block is for listing the blogs that we can choose
             Console.Clear();
             List<Blog> blogs = _BlogRepository.GetAll();
@@ -138,8 +141,9 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine($"{blog.Id} - {blog.Title}");
             }
             Console.WriteLine("Enter the Blog's ID");
-            post.Blog = new Blog();
-            post.Blog.Id = int.Parse(Console.ReadLine());
+            post.Blog = new Blog();     
+            post.Blog.Id = InputHandler.CheckInputId(blogs);
+
             Console.Clear();
 
             _postRepository.Insert(post);
