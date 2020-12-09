@@ -122,12 +122,14 @@ Content: {journalPost.Content}
             }
 
             Console.WriteLine();
+            Console.WriteLine($"Original: {journalToEdit.Title}");
             Console.Write("New Title (blank to leave unchanged: ");
             string title = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(title))
             {
                 journalToEdit.Title = title;
             }
+            Console.WriteLine($"Original: {journalToEdit.Content}");
             Console.Write("New Content (blank to leave unchanged: ");
             string content = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(content))
