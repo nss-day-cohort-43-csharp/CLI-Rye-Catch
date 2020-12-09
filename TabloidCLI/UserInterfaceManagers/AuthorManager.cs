@@ -118,18 +118,23 @@ namespace TabloidCLI.UserInterfaceManagers
             if (authorToEdit == null) return;           
 
             Console.WriteLine();
+            Console.WriteLine($"Original: {authorToEdit.FirstName}");
             Console.Write("New first name (blank to leave unchanged): ");
             string firstName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(firstName))
             {
                 authorToEdit.FirstName = firstName;
             }
+            Console.WriteLine();
+            Console.WriteLine($"Original: {authorToEdit.LastName}");
             Console.Write("New last name (blank to leave unchanged): ");
             string lastName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(lastName))
             {
                 authorToEdit.LastName = lastName;
             }
+            Console.WriteLine();
+            Console.WriteLine($"Original: {authorToEdit.Bio}");
             Console.Write("New bio (blank to leave unchanged): ");
             string bio = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(bio))
