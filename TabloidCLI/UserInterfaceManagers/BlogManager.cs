@@ -117,12 +117,15 @@ namespace TabloidCLI.UserInterfaceManagers
                 return;
             }
             Console.WriteLine();
+            Console.WriteLine($"Original: {blogToEdit.Title}");
             Console.Write("New Title (blank to leave unchanged: ");
             string title = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(title))
             {
                 blogToEdit.Title = title;
             }
+            Console.WriteLine();
+            Console.WriteLine($"Original: {blogToEdit.Url}");
             Console.Write("New URL (blank to leave unchanged: ");
             string url = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(url))

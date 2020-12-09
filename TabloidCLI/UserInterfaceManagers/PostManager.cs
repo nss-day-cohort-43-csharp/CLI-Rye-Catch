@@ -159,12 +159,15 @@ namespace TabloidCLI.UserInterfaceManagers
             if (postToEdit == null) return;
 
             Console.WriteLine();
+            Console.WriteLine($"Original: {postToEdit.Title}");
             Console.Write("New Title (blank to leave unchanged): ");
             string title = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(title))
             {
                 postToEdit.Title = title;
             }
+            Console.WriteLine();
+            Console.WriteLine($"Original: {postToEdit.Url}");
             Console.Write("New URL (blank to leave unchanged): ");
             string url = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(url))
@@ -173,6 +176,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
             // this is where things get tricky - This ia prints out a list of authors with their Ids, the user will then pick an Id & we make a new Author Object to hold that Id.
             Console.Clear();
+            Console.WriteLine($"Original: {postToEdit.Author}");
             Console.Write("New Author (blank to leave unchanged): ");
             Console.WriteLine("List of Authors\n---------------");
             List<Author> authors = _authorRepository.GetAll();
@@ -186,6 +190,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
             //this will be the block to make sure that we create a new Blog object if we need it.
             Console.Clear();
+            Console.WriteLine($"Original: {postToEdit.Blog}");
             Console.Write("New Blog (blank to leave unchanged): ");
             Console.WriteLine("List of Blogs\n---------------");
             List<Blog> blogs = _BlogRepository.GetAll();
