@@ -87,6 +87,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Clear();
             if (prompt == null) prompt = "Please choose a Post:";
             Console.WriteLine(prompt);
+            Console.WriteLine("---------------");
 
             List<Post> posts = _postRepository.GetAll();
 
@@ -94,6 +95,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Post post = posts[i];
                 Console.WriteLine($" {i + 1}) {post.Title}");
+                Console.WriteLine("---------------");
             }
             Console.Write("> ");
 
@@ -128,16 +130,19 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("List of Authors\n---------------");
             List<Author> authors = _authorRepository.GetAll();
             foreach (Author author in authors) Console.WriteLine($"{author.Id} - {author.FullName}");
+            Console.WriteLine("---------------");
             Console.WriteLine("Enter the Author's ID");
             post.Author = new Author();
             post.Author.Id = int.Parse(Console.ReadLine());
             //this block is for listing the blogs that we can choose
             Console.Clear();
+            Console.WriteLine("List of Blogs\n---------------");
             List<Blog> blogs = _BlogRepository.GetAll();
             foreach (Blog blog in blogs)
             {
                 Console.WriteLine($"{blog.Id} - {blog.Title}");
             }
+            Console.WriteLine("---------------");
             Console.WriteLine("Enter the Blog's ID");
             post.Blog = new Blog();
             post.Blog.Id = int.Parse(Console.ReadLine());
