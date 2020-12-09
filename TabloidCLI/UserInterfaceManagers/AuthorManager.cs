@@ -149,9 +149,17 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Console.Clear();
             Author authorToDelete = Choose("Which author would you like to remove?");
-            if (authorToDelete != null)
+            Console.WriteLine($"Are you sure that you want to delete {authorToDelete.FullName}? --- Y / N");
+            string confirmation = Console.ReadLine().ToLower().Trim();
+            
+            if (authorToDelete != null && confirmation == "y")
             {
                 _authorRepository.Delete(authorToDelete.Id);
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Journal Titled: {authorToDelete.FullName} wasn't deleted");
             }
         }
     }
