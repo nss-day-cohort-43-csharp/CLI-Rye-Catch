@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
@@ -10,12 +9,14 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
+        private TagRepository _tagRepository;
         private int _postId;
 
         public PostDetailManager(IUserInterfaceManager parentUI, string connectionString, int postId)
         {
             _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
+            _tagRepository = new TagRepository(connectionString);
             _postId = postId;
         }
 
@@ -38,7 +39,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     View();
                     return this;
                 case "2":
-                    //AddTag();
+                    AddTag();
                     return this;
                 case "3":
                     RemoveTag();
@@ -73,6 +74,34 @@ Tags");
                 
             };
             Console.WriteLine("-----------");
+        }
+
+        private void AddTag()
+        {
+            Console.Clear();
+            Post post = _postRepository.Get(_postId);
+
+            Console.WriteLine($"Which tag would you like to add to {post.Title}?");
+            List<Tag> tags = _tagRepository.GetAll();
+
+            for (int i = 0; i < tags.Count; i++)
+            {
+                Tag tag = tags[i];
+                Console.WriteLine($" {i + 1}) {tag.Name}");
+            }
+            Console.Write("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                Tag tag = tags[choice - 1];
+                _postRepository.InsertTag(post, tag);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection. Won't add any tags.");
+            }
         }
 
         private void RemoveTag()
