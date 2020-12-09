@@ -145,9 +145,17 @@ namespace TabloidCLI.UserInterfaceManagers
         private void Remove()
         {
             Journal journalToDelete = Choose("Which journal would you like to remove?");
-            if (journalToDelete != null)
+            Console.WriteLine($"Are you sure that you want to delete {journalToDelete.Title}? --- Y / N");
+            string confirmation = Console.ReadLine().ToLower().Trim();
+
+            if (journalToDelete != null && confirmation == "y")
             {
                 _journalRepository.Delete(journalToDelete.Id);
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Journal Titled: {journalToDelete.Title} wasn't deleted");
             }
         }
     }
